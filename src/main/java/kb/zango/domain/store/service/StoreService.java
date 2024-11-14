@@ -1,8 +1,7 @@
-package kb.zango.store.service;
+package kb.zango.domain.store.service;
 
-import kb.zango.store.domain.Store;
-import kb.zango.store.dto.StoreResponse;
-import kb.zango.store.repository.StoreRepository;
+import kb.zango.domain.store.dto.StoreResponse;
+import kb.zango.domain.store.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
