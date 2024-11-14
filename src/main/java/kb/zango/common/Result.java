@@ -1,4 +1,4 @@
-package kb.zango.store.common;
+package kb.zango.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

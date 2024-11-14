@@ -1,6 +1,6 @@
-package kb.zango.store.dto;
+package kb.zango.domain.store.dto;
 
-import kb.zango.store.domain.Store;
+import kb.zango.domain.store.entity.Store;
 import lombok.Data;
 
 import java.time.LocalTime;
