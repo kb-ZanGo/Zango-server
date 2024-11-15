@@ -1,7 +1,7 @@
 package kb.zango.domain.comment.domain;
 
 import jakarta.persistence.*;
-import kb.zango.domain.board.entity.Board;
+import kb.zango.domain.diary.board.entity.Board;
 import kb.zango.domain.users.entity.User;
 import lombok.Data;
 
