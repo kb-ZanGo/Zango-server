@@ -52,37 +52,16 @@ public class CommentController {
 
     @GetMapping("/{boardId}")
     public ResponseEntity<List<CommentResponseDTO>> getAllComments(@PathVariable Long boardId) {
-        List<Comment> commentsByBoardId = commentRepository.findCommentByBoardId(boardId);
+        List<CommentResponseDTO> commentsByBoardId = commentService.findCommentByBoardId(boardId);
 
-        List<CommentResponseDTO> responseDTOs = commentsByBoardId.stream()
-                .map(comment -> new CommentResponseDTO(
-                        comment.getCommentId(),
-                        comment.getBoard().getBoardId(),
-                        comment.getUser().getUsername(),
-                        comment.getParentComment()== null? null : comment.getParentComment().getCommentId(),
-                        comment.getContent(),
-                        comment.getRegiDate(),
-                        comment.getLikeCnt()
-                )).toList();
-
-        return ResponseEntity.ok(responseDTOs);
+        return ResponseEntity.ok(commentsByBoardId);
     }
 
     @GetMapping("/{parentCommentId}/replies")
     public ResponseEntity<List<CommentResponseDTO>> getAllReCommentsByCommentId(@PathVariable Long parentCommentId) {
-        List<Comment> commentsByBoardId = commentRepository.findReCommentByCommentId(parentCommentId);
+        List<CommentResponseDTO> reCommentByCommentId = commentService.findReCommentByCommentId(parentCommentId);
 
-        List<CommentResponseDTO> responseDTOs = commentsByBoardId.stream().map(reComment -> new CommentResponseDTO(
-                reComment.getCommentId(),
-                reComment.getBoard().getBoardId(),
-                reComment.getUser().getUsername(),
-                reComment.getParentComment()!= null? reComment.getParentComment().getCommentId() : null,
-                reComment.getContent(),
-                reComment.getRegiDate(),
-                reComment.getLikeCnt()
-        )).toList();
-
-        return ResponseEntity.ok(responseDTOs);
+        return ResponseEntity.ok(reCommentByCommentId);
     }
 
 }
