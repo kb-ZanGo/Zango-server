@@ -16,7 +16,7 @@ public class QuizResult {
         Integer correctAnswer = quiz.getCorrectAnswer();
         this.answer = quiz.getType().equals("OX")
                 ? (correctAnswer == 0 ? "O" : "X")
-                : quiz.accept(new ChoiceVisitor()).get(correctAnswer).getText();
+                : quiz.accept(new ChoiceVisitor()).get(correctAnswer-1).getText();
         this.correct = correctAnswer.equals(userAnswer);
     }
 

@@ -45,4 +45,8 @@ public class QuizGroup {
     public void use() {
         this.isUsed = true;
     }
+
+    public void addCount() {
+        count+=1;
+    }
 }
