@@ -1,8 +1,8 @@
 package kb.zango.domain.users.entity;
 
 import jakarta.persistence.*;
+import kb.zango.domain.comment.entity.Comment;
 import kb.zango.domain.diary.board.entity.Board;
-import kb.zango.domain.comment.domain.Comment;
 import lombok.Data;
 
 import java.util.List;
@@ -20,9 +20,9 @@ public class User {
     private String connectId;
     private Long point;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Board> boards;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Comment> comments;
 }
