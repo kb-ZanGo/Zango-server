@@ -36,4 +36,18 @@ public class StoreRepository{
                 .getResultList();
 
     }
+
+    //findById
+    public Store findById(Long id) {
+        return em.find(Store.class, id);
+    }
+
+    //save
+    public void save(Store store) {
+        if(store.getId() == null) {
+            em.persist(store);
+        } else {
+            em.merge(store);
+        }
+    }
 }
