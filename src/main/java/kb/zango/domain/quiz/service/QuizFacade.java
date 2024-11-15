@@ -39,8 +39,11 @@ public class QuizFacade {
         return result;
     }
 
+    @Transactional
     public QuizGroupResult solveQuiz(Long quizGroupId, List<Integer> userQuizAnswer) {
         List<Quiz> quizzes = quizService.findQuizzes(quizGroupId);
+        QuizGroup group = quizzes.get(0).getGroup();
+        group.addCount();
         List<QuizResult> result = new ArrayList<>();
         for(int i=0;i<quizzes.size();i++) {
             Quiz quiz = quizzes.get(i);
