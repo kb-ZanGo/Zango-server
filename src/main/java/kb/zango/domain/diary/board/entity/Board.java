@@ -22,7 +22,7 @@ public class Board {
     private int board_type;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "scId", nullable = false)
+    @JoinColumn(name = "sc_id", nullable = false)
     private SmallCategory smallCategory;
 
     private String title;
