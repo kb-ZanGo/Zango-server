@@ -50,6 +50,6 @@ public class QuizFacade {
             Integer userAnswer = userQuizAnswer.get(i);
             result.add(new QuizResult(quiz, userAnswer));
         }
-        return new QuizGroupResult(result,group.getReward());
+        return new QuizGroupResult(result);
     }
 }
