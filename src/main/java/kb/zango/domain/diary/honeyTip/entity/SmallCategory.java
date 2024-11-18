@@ -18,4 +18,7 @@ public class SmallCategory {
 
     private String name;
 
+    public void setId(Long scId) {
+        this.scId = scId;
+    }
 }

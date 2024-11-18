@@ -5,22 +5,26 @@
 <mapper namespace="kb.zango.domain.diary.mapper.BoardMapper">
     <insert id="insertBoard" parameterType="kb.zango.domain.diary.board.entity.Board"
             useGeneratedKeys="true" keyProperty="boardId">
-        INSERT INTO board (user_id, title, content, like_cnt, comment_cnt, regi_date, sc_id)
-        VALUES (#{user.userId}, #{title}, #{content}, #{likeCnt}, #{commentCnt}, #{regiDate}, #{smallCategory.scId})
+        INSERT INTO board (user_id, title, content, like_cnt, comment_cnt, regi_date, sc_id, board_type)
+        VALUES (#{user.userId}, #{title}, #{content}, #{likeCnt}, #{commentCnt}, #{regiDate}, #{smallCategory.scId}, #{board_type})
     </insert>
 
-    <select id="findBoardById" resultType="kb.zango.domain.diary.board.entity.Board">
+    <select id="findBoardById" parameterType="Long" resultType="kb.zango.domain.diary.board.entity.Board">
         SELECT * FROM board WHERE board_id = #{boardId}
     </select>
 
     <select id="findAllBoards" resultType="kb.zango.domain.diary.board.entity.Board">
-        SELECT * FROM board ORDER BY regi_date DESC
+        SELECT b.board_id, b.title, b.like_cnt, u.user_id, sc.sc_id, sc.name
+        FROM board b
+        JOIN users u ON b.user_id = u.user_id
+        JOIN small_category sc ON b.sc_id = sc.sc_id
+        ORDER BY b.regi_date DESC
     </select>
 
     <update id="updateBoard" parameterType="kb.zango.domain.diary.board.entity.Board">
         UPDATE board
-        SET title = #{title}, content = #{content}, like_count = #{likeCnt},
-            comment_count = #{commentCnt}, regi_date = #{regiDate}
+        SET title = #{title}, content = #{content}, like_cnt = #{likeCnt},
+            comment_cnt = #{commentCnt}, regi_date = #{regiDate}
         WHERE board_id = #{boardId}
     </update>
 

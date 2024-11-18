@@ -28,20 +28,22 @@ public class BoardMapperTest {
         board.setTitle("Test Title");
         board.setContent("Test Content");
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedNow = LocalDateTime.now().format(formatter);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+//        String formattedNow = LocalDateTime.now().format(formatter);
 
-        LocalDateTime formattedDate = LocalDateTime.parse(formattedNow, formatter);
+        LocalDateTime formattedDate = LocalDateTime.now();
 
         board.setRegiDate(formattedDate);
 
         SmallCategory smallCategory = new SmallCategory();
         smallCategory.setScId(2L);
         board.setSmallCategory(smallCategory);
+        board.setBoard_type(0);
 
         boardMapper.insertBoard(board);
 
         Board insertedBoard = boardMapper.findBoardById(board.getBoardId());
+
         assertNotNull(insertedBoard);
         assertEquals(board.getBoardId(), insertedBoard.getBoardId());
     }
