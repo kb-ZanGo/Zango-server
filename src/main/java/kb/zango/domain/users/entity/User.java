@@ -14,15 +14,24 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
     private String username;
     private String connectId;
     private Long point;
+    private Integer quizParticipationCount;
 
     @OneToMany(mappedBy = "user")
     private List<Board> boards;
 
     @OneToMany(mappedBy = "user")
     private List<Comment> comments;
+
+    public void addPoint(Long point) {
+        this.point += point;
+    }
+
+    public void addQuizParticipationCount() {
+        this.quizParticipationCount++;
+    }
 }
