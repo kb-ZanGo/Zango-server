@@ -12,6 +12,7 @@ import lombok.Data;
 public class Board {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardId;
 
     @ManyToOne(fetch = FetchType.EAGER)

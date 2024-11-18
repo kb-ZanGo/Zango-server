@@ -1,6 +1,7 @@
 package kb.zango.domain.diary.mapper;
 
 import kb.zango.domain.board.entity.Board;
+import kb.zango.domain.board.mapper.BoardMapper;
 import kb.zango.domain.diary.honeyTip.entity.SmallCategory;
 import kb.zango.domain.users.entity.User;
 import org.junit.jupiter.api.Test;

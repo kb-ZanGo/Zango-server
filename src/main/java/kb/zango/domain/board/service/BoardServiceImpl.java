@@ -5,21 +5,18 @@ import java.util.stream.Collectors;
 import kb.zango.domain.board.dto.BoardListResponse;
 import kb.zango.domain.board.entity.Board;
 import kb.zango.domain.board.repository.BoardRepository;
-import kb.zango.domain.diary.mapper.BoardMapper;
+import kb.zango.domain.board.mapper.BoardMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService {
 
     private final BoardRepository boardRepository;
     private final BoardMapper boardMapper;
-
-    public BoardServiceImpl(BoardRepository boardRepository, BoardMapper boardMapper) {
-        this.boardRepository = boardRepository;
-        this.boardMapper = boardMapper;
-    }
 
     @Override
     public void createBoard(Board board) {

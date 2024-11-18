@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@MapperScan("kb.zango.domain.diary.mapper")
+@MapperScan("kb.zango.domain.**.mapper")
 public class ZangoApplication {
 
     public static void main(String[] args) {

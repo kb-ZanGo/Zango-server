@@ -8,7 +8,7 @@ import kb.zango.domain.board.dto.BoardListResponse;
 import kb.zango.domain.board.entity.Board;
 import kb.zango.domain.board.service.BoardService;
 import kb.zango.domain.diary.honeyTip.entity.SmallCategory;
-import kb.zango.domain.diary.mapper.BoardMapper;
+import kb.zango.domain.board.mapper.BoardMapper;
 import kb.zango.domain.users.entity.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,4 +1,4 @@
-package kb.zango.domain.diary.mapper;
+package kb.zango.domain.board.mapper;
 
 import java.util.List;
 import kb.zango.domain.board.entity.Board;
