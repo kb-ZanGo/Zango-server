@@ -1,4 +1,4 @@
-package kb.zango.domain.comment.domain;
+package kb.zango.domain.comment.entity;
 
 import jakarta.persistence.*;
 import kb.zango.domain.board.entity.Board;

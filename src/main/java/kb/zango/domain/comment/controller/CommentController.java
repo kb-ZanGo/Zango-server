@@ -1,6 +1,5 @@
 package kb.zango.domain.comment.controller;
 
-import kb.zango.domain.comment.domain.Comment;
 import kb.zango.domain.comment.dto.CommentResponseDTO;
 import kb.zango.domain.comment.dto.CreateCommentRequestDTO;
 import kb.zango.domain.comment.dto.UpdateCommentRequestDTO;

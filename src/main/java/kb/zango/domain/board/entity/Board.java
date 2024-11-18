@@ -11,7 +11,7 @@ public class Board {
     @Id
     private Long boardId;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 }
