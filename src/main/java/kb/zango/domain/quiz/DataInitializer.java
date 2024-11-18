@@ -13,12 +13,13 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 public class DataInitializer implements CommandLineRunner {
 
     private final QuizGroupRepository quizGroupRepository;
     private final QuizRepository quizRepository;
+
     @Override
     public void run(String... args) throws Exception {
         // First QuizGroup with 2 OX Quizzes
