@@ -1,14 +1,13 @@
 package kb.zango.domain.diary.mapper;
 
-import kb.zango.domain.diary.board.entity.Board;
-import kb.zango.domain.diary.honeyTip.entity.BigCategory;
+import kb.zango.domain.board.entity.Board;
 import kb.zango.domain.diary.honeyTip.entity.SmallCategory;
 import kb.zango.domain.users.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest

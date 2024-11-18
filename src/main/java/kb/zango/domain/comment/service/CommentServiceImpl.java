@@ -1,8 +1,8 @@
 package kb.zango.domain.comment.service;
 
 import kb.zango.domain.comment.entity.Comment;
-import kb.zango.domain.diary.board.entity.Board;
-import kb.zango.domain.diary.board.repository.BoardRepository;
+import kb.zango.domain.board.entity.Board;
+import kb.zango.domain.board.repository.BoardRepository;
 import kb.zango.domain.comment.dto.CreateCommentRequestDTO;
 import kb.zango.domain.comment.dto.CommentResponseDTO;
 import kb.zango.domain.comment.dto.UpdateCommentRequestDTO;

@@ -1,4 +1,4 @@
-package kb.zango.domain.diary.board.dto;
+package kb.zango.domain.board.dto;
 
 import kb.zango.domain.diary.honeyTip.entity.SmallCategory;
 import kb.zango.domain.users.entity.User;

@@ -1,6 +1,6 @@
 package kb.zango.domain.diary.feedBack.entity;
 
-import kb.zango.domain.diary.board.entity.Board;
+import kb.zango.domain.board.entity.Board;
 
 public class FeedBackBoard {
     private Board board;

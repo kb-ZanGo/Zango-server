@@ -1,6 +1,6 @@
 package kb.zango.domain.diary.honeyTip.entity;
 
-import kb.zango.domain.diary.board.entity.Board;
+import kb.zango.domain.board.entity.Board;
 
 public class HoneyTipBoard {
     private Board board;

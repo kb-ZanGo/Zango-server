@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import kb.zango.domain.diary.board.dto.BoardListResponse;
-import kb.zango.domain.diary.board.entity.Board;
-import kb.zango.domain.diary.board.repository.BoardRepository;
+import kb.zango.domain.board.dto.BoardListResponse;
+import kb.zango.domain.board.entity.Board;
+import kb.zango.domain.board.service.BoardService;
 import kb.zango.domain.diary.honeyTip.entity.SmallCategory;
 import kb.zango.domain.diary.mapper.BoardMapper;
 import kb.zango.domain.users.entity.User;

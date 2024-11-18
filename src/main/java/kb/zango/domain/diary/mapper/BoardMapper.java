@@ -1,7 +1,7 @@
 package kb.zango.domain.diary.mapper;
 
 import java.util.List;
-import kb.zango.domain.diary.board.entity.Board;
+import kb.zango.domain.board.entity.Board;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

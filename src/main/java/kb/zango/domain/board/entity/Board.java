@@ -1,4 +1,4 @@
-package kb.zango.domain.diary.board.entity;
+package kb.zango.domain.board.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;

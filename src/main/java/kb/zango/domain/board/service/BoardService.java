@@ -1,8 +1,8 @@
-package kb.zango.domain.diary.board.service;
+package kb.zango.domain.board.service;
 
 import java.util.List;
-import kb.zango.domain.diary.board.dto.BoardListResponse;
-import kb.zango.domain.diary.board.entity.Board;
+import kb.zango.domain.board.dto.BoardListResponse;
+import kb.zango.domain.board.entity.Board;
 
 public interface BoardService {
 
