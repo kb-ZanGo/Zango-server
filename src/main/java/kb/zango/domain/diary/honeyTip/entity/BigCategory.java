@@ -1,6 +1,8 @@
 package kb.zango.domain.diary.honeyTip.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import lombok.Data;
 
 import java.util.List;
@@ -18,5 +20,7 @@ public class BigCategory {
     public String name;
 
     @OneToMany(mappedBy = "bigCategory", cascade = CascadeType.REMOVE)
+    @JsonIgnore
     private List<SmallCategory> smallCategories;
+
 }

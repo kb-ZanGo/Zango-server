@@ -17,4 +17,5 @@ public class SmallCategory {
     private BigCategory bigCategory;
 
     private String name;
+
 }

@@ -1,6 +1,8 @@
 package kb.zango.domain.diary.mapper;
 
 import kb.zango.domain.diary.board.entity.Board;
+import kb.zango.domain.diary.honeyTip.entity.BigCategory;
+import kb.zango.domain.diary.honeyTip.entity.SmallCategory;
 import kb.zango.domain.users.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public class BoardMapperTest {
         Board board = new Board();
 
         User user = new User();
-        user.setUserId(11L);
+        user.setUserId(1L);
         board.setUser(user);
 
         board.setTitle("Test Title");
@@ -33,11 +35,14 @@ public class BoardMapperTest {
 
         board.setRegiDate(formattedDate);
 
-        // insertBoard 호출
+        SmallCategory smallCategory = new SmallCategory();
+        smallCategory.setScId(2L);
+        board.setSmallCategory(smallCategory);
+
         boardMapper.insertBoard(board);
 
-        // 삽입 후 확인 로직 (DB에서 삽입된 게시글 조회)
         Board insertedBoard = boardMapper.findBoardById(board.getBoardId());
         assertNotNull(insertedBoard);
+        assertEquals(board.getBoardId(), insertedBoard.getBoardId());
     }
 }
