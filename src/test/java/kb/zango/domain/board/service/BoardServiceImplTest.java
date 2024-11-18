@@ -1,4 +1,4 @@
-package kb.zango.domain.diary.board.service;
+package kb.zango.domain.board.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
