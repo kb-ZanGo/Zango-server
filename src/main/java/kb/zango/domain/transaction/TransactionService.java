@@ -30,16 +30,10 @@ public class TransactionService {
 
     private EasyCodef codef = new EasyCodef();
 
-    @PostConstruct
-    public void publishToken() throws IOException {
-
-    }
-    @PostConstruct
     public String register() throws IOException, InterruptedException {
         codef.setClientInfoForDemo(clientId, clientSecret);
         codef.setPublicKey(publicKey);
-        String accessToken1 = codef.requestToken(EasyCodefServiceType.DEMO);	// 토큰 요청1 (requestToken)
-        System.out.println("액세스토큰:" + accessToken1);
+
         List<HashMap<String, Object>> accountList = new ArrayList<HashMap<String, Object>>();
         HashMap<String, Object> accountMap = new HashMap<String, Object>();
         accountMap.put("countryCode",	"KR");
@@ -47,10 +41,10 @@ public class TransactionService {
         accountMap.put("clientType", 	"P");
         accountMap.put("organization",	"0004"); // 기관코드는 각 상품 페이지에서 확인 가능
         accountMap.put("loginType",  	"1");
-        accountMap.put("id",  		"wjdgus980812");
+        accountMap.put("id",  		"id");
 
         try {
-            accountMap.put("password",  EasyCodefUtil.encryptRSA("9972486wg@", codef.getPublicKey())); // RSA암호화가 필요한 필드는 encryptRSA(String plainText, String publicKey) 메서드를 이용해 암호화
+            accountMap.put("password",  EasyCodefUtil.encryptRSA("pw", codef.getPublicKey())); // RSA암호화가 필요한 필드는 encryptRSA(String plainText, String publicKey) 메서드를 이용해 암호화
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -61,8 +55,8 @@ public class TransactionService {
         parameterMap.put("accountList", accountList);
 
 /** #6.계정 등록 요청(Connected ID 발급 요청)	- 서비스타입(API:정식, DEMO:데모, SANDBOX:샌드박스) */
-//        String connectedIdResponse = codef.createAccount(EasyCodefServiceType.DEMO, parameterMap);
-//        String connectedId = extractConnectedIdFromResponse(connectedIdResponse);
+        String connectedIdResponse = codef.createAccount(EasyCodefServiceType.DEMO, parameterMap);
+        String connectedId = extractConnectedIdFromResponse(connectedIdResponse);
 
 /** #7.결과 확인	*/
 //        System.out.println(connectedIdResponse);
@@ -70,9 +64,9 @@ public class TransactionService {
         /** #5.요청 파라미터 설정 - 각 상품별 파라미터를 설정(https://developer.codef.io/products) */
         HashMap<String, Object> param = new HashMap<String, Object>();
 //        param.put("connectedId", connectedId);
-        param.put("connectedId", "7TcJJamz4Wjb4.6So1JePo");
+        param.put("connectedId", connectedId);
         param.put("organization", "0004");
-        param.put("account", "55660201830185");
+        param.put("account", "계좌");
         param.put("startDate", "20240901");
         param.put("endDate", "20241117");
         param.put("orderBy", "0");
