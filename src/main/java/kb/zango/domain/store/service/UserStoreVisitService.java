@@ -29,7 +29,7 @@ public class UserStoreVisitService {
 //                .map(UserStoreVisit::getStore)
 //                .count();
         //check if user already visited the store in a day using userStoreVisitRepository.findByUserIdAndStoreIdAndVisitDate
-        userStoreVisitRepository.findByUserIdAndStoreIdAndVisitDate(userId, storeId, LocalDate.now())
+        userStoreVisitRepository.findByUserUserIdAndStoreIdAndVisitDate(userId, storeId, LocalDate.now())
                 .ifPresentOrElse(
                         userStoreVisit -> {
                             throw new RuntimeException("Already visited");

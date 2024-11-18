@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface UserStoreVisitRepository extends JpaRepository<UserStoreVisit, Long> {
 
-    Optional<UserStoreVisit> findByUserIdAndStoreIdAndVisitDate(Long userId, Long storeId, LocalDate visitDate);
+    Optional<UserStoreVisit> findByUserUserIdAndStoreIdAndVisitDate(Long userId, Long storeId, LocalDate visitDate);
 }
