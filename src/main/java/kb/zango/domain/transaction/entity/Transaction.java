@@ -1,7 +1,7 @@
 package kb.zango.domain.transaction.entity;
 
 import jakarta.persistence.*;
-import kb.zango.domain.board.entity.Board;
+import kb.zango.domain.diary.feedBack.entity.FeedBackBoard;
 import lombok.Data;
 
 @Entity
@@ -14,8 +14,8 @@ public class Transaction {
     private Long trNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="board_id", nullable = false)
-    private Board board;
+    @JoinColumn(name="feedBackId", nullable = false)
+    private FeedBackBoard feedBackBoard;
 
     private int trType;
     private String trName;
