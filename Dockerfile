@@ -1,4 +1,4 @@
-FROM gradle:7.6.0-jdk17 AS build
+FROM bellsoft/liberica-openjdk-alpine:17
 
 CMD ["./gradlew", "clean", "build"]
 
@@ -7,4 +7,4 @@ ARG PROFILES
 ARG ENV
 COPY ${JAR_FILE} app.jar
 
-ENTRYPOINT ["java", "-Dspring.profiles.active=${PROFILES}", "-Dspring.profiles.env=${PROFILES}","-Dserver.env=${ENV}", "-jar", "/app.jar"]
+ENTRYPOINT ["java","-Dspring.profiles.active=${PROFILES}","-Dserver.env=${ENV}", "-jar", "app.jar"]
