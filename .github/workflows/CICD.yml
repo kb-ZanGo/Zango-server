@@ -33,7 +33,7 @@ jobs:
           find src
           
       - name: Build with Gradle
-        uses: gradle/actions@v4.2.0
+        uses: gradle/gradle-build-action@v3.5.0
         with:
           arguments: build -x test
           
