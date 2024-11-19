@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.codef.api.EasyCodef;
 import io.codef.api.EasyCodefServiceType;
 import io.codef.api.EasyCodefUtil;
+import kb.zango.domain.transaction.dto.CodefApiRequestDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class CodefTransactionService {
 
     private EasyCodef codef = new EasyCodef();
 
-    public String register(String userId, String userPassword, String accountNum) throws IOException, InterruptedException {
+    public String register(CodefApiRequestDTO codefApiRequestDTO) throws IOException, InterruptedException {
         codef.setClientInfoForDemo(clientId, clientSecret);
         codef.setPublicKey(publicKey);
 
@@ -41,10 +42,10 @@ public class CodefTransactionService {
         accountMap.put("clientType", 	"P");
         accountMap.put("organization",	"0004"); // 기관코드는 각 상품 페이지에서 확인 가능
         accountMap.put("loginType",  	"1");
-        accountMap.put("id",  		userId);
+        accountMap.put("id",  		codefApiRequestDTO.getUserId());
 
         try {
-            accountMap.put("password",  EasyCodefUtil.encryptRSA(userPassword, codef.getPublicKey())); // RSA암호화가 필요한 필드는 encryptRSA(String plainText, String publicKey) 메서드를 이용해 암호화
+            accountMap.put("password",  EasyCodefUtil.encryptRSA(codefApiRequestDTO.getUserPassword(), codef.getPublicKey())); // RSA암호화가 필요한 필드는 encryptRSA(String plainText, String publicKey) 메서드를 이용해 암호화
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -71,7 +72,7 @@ public class CodefTransactionService {
         HashMap<String, Object> param = new HashMap<String, Object>();
         param.put("connectedId", connectedId);
         param.put("organization", "0004");
-        param.put("account", accountNum);
+        param.put("account", codefApiRequestDTO.getUserAccountNum());
         param.put("startDate", startDate);
         param.put("endDate", endDate);
         param.put("orderBy", "0");

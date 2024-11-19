@@ -12,7 +12,7 @@ public class TransactionResponseDTO {
     private int trType;
     private String trName;
     private long amount;
-    private String trDay; // date + time
-    private String trTime; // date + time
+    private String trDay;
+    private String trTime;
 
 }
