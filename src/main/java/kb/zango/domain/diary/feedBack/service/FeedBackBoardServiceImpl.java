@@ -3,10 +3,7 @@ package kb.zango.domain.diary.feedBack.service;
 
 import kb.zango.domain.board.entity.Board;
 import kb.zango.domain.board.repository.BoardRepository;
-import kb.zango.domain.diary.feedBack.dto.FeedBackResponseDTO;
-import kb.zango.domain.diary.feedBack.dto.GetBoardDTO;
-import kb.zango.domain.diary.feedBack.dto.HomeListFeedBackDTO;
-import kb.zango.domain.diary.feedBack.dto.IOCntByDate;
+import kb.zango.domain.diary.feedBack.dto.*;
 import kb.zango.domain.diary.feedBack.entity.FeedBackBoard;
 import kb.zango.domain.diary.feedBack.repository.FeedBackRepository;
 import kb.zango.domain.diary.honeyTip.repository.SmallCategoryRepository;
@@ -109,6 +106,8 @@ public class FeedBackBoardServiceImpl implements FeedBackBoardService {
 
         // 응답에 넣을 transactions 정보
         List<TransactionResponseDTO> transactions = transactionService.getTransactions(feedBackId);
+        int incomeMonthSum = 0;
+        int outcomeMonthSum = 0;
 
         // Map을 사용하여 날짜별로 수입 및 지출을 집계할 수 있는 구조 생성
         Map<String, IOCntByDate> countMap = new HashMap<>();
@@ -122,8 +121,11 @@ public class FeedBackBoardServiceImpl implements FeedBackBoardService {
             // 트랜잭션 타입에 따라 수입/지출 개수 증가
             if (transaction.getTrType() == 1) { // 수입
                 ioCnt.setIncomeCnt(ioCnt.getIncomeCnt() + 1);
+                incomeMonthSum += (int)transaction.getAmount();
+
             } else if (transaction.getTrType() == 0) { // 지출
                 ioCnt.setOutcomeCnt(ioCnt.getOutcomeCnt() + 1);
+                outcomeMonthSum += (int)transaction.getAmount();
             }
 
             // Map에 갱신된 값 저장
@@ -136,16 +138,36 @@ public class FeedBackBoardServiceImpl implements FeedBackBoardService {
         FeedBackResponseDTO boardWithTransactions = new FeedBackResponseDTO();
         boardWithTransactions.setBoard(newBoard);
         boardWithTransactions.setIoCnts(ioCntByDateList);
+        boardWithTransactions.setIncomeMonthSum(incomeMonthSum);
+        boardWithTransactions.setOutcomeMonthSum(outcomeMonthSum);
 
         return boardWithTransactions;
     }
 
     // 게시물 Id와 날짜로 조회
     @Override
-    public List<TransactionResponseDTO> getTransactionsByDate(Long feedBackId, String trDay) {
+    public DateSumResponseDTO getTransactionsByDate(Long feedBackId, String trDay) {
         feedBackRepository.findById(feedBackId).orElseThrow(() -> new kb.zango.global.exception.ResourceNotFoundException("해당하는 게시물을 찾을 수 없습니다: " + feedBackId));
+        List<TransactionResponseDTO> transactions = transactionService.getTransactionsByDate(feedBackId, trDay);
 
-        return transactionService.getTransactionsByDate(feedBackId, trDay);
+        int incomeDateSum = 0;
+        int outcomeDateSum = 0;
+
+        for (TransactionResponseDTO transaction : transactions) {
+            if(transaction.getTrType() == 1) {
+                incomeDateSum += (int)transaction.getAmount();
+            }else if(transaction.getTrType() == 0) {
+                outcomeDateSum += (int)transaction.getAmount();
+            }
+        }
+
+        DateSumResponseDTO dateSumResponseDTO = new DateSumResponseDTO();
+        dateSumResponseDTO.setIncomeDateSum(incomeDateSum);
+        dateSumResponseDTO.setOutcomeDateSum(outcomeDateSum);
+        dateSumResponseDTO.setTransactions(transactions);
+
+
+        return dateSumResponseDTO;
     }
 
     // Home feedBack 게시물 리스트 조회
@@ -153,16 +175,15 @@ public class FeedBackBoardServiceImpl implements FeedBackBoardService {
     public List<HomeListFeedBackDTO> getFeedBackList() {
         List<FeedBackBoard> feedBackList = feedBackRepository.getFeedBackList();
 
-        // DateTimeFormatter 정의 (yyyy.MM.dd 형식)
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
 
-        // FeedBackBoard 리스트를 DTO로 변환
         return feedBackList.stream()
                 .map(feedBackBoard -> new HomeListFeedBackDTO(
-                        feedBackBoard.getBoard().getBoardId(),  // boardId
-                        feedBackBoard.getBoard().getTitle(),   // title
-                        feedBackBoard.getBoard().getContent(), // content
-                        feedBackBoard.getBoard().getRegiDate().toLocalDate().format(formatter), // regiDate
+                        feedBackBoard.getBoard().getBoardId(),  // 게시물 id
+                        feedBackBoard.getBoard().getTitle(),   // 게시물 제목
+                        feedBackBoard.getBoard().getUser().getUsername(), // 유저이름
+                        feedBackBoard.getBoard().getContent(), // 게시물 내용
+                        feedBackBoard.getBoard().getRegiDate().toLocalDate().format(formatter), // 등록일자 "yyyy.mm.dd"
                         feedBackBoard.getBoard().getLikeCnt()
                 ))
                 .collect(Collectors.toList());

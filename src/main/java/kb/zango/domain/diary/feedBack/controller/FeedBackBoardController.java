@@ -3,10 +3,7 @@ package kb.zango.domain.diary.feedBack.controller;
 
 import kb.zango.domain.board.entity.Board;
 import kb.zango.domain.board.repository.BoardRepository;
-import kb.zango.domain.diary.feedBack.dto.CreateFeedBackBoardDTO;
-import kb.zango.domain.diary.feedBack.dto.FeedBackResponseDTO;
-import kb.zango.domain.diary.feedBack.dto.GetBoardDTO;
-import kb.zango.domain.diary.feedBack.dto.HomeListFeedBackDTO;
+import kb.zango.domain.diary.feedBack.dto.*;
 import kb.zango.domain.diary.feedBack.repository.FeedBackRepository;
 import kb.zango.domain.diary.feedBack.service.FeedBackBoardServiceImpl;
 import kb.zango.domain.transaction.dto.CodefApiRequestDTO;
@@ -77,10 +74,10 @@ public class FeedBackBoardController {
     }
 
     @GetMapping("/{boardId}/{date}")
-    public ResponseEntity<List<TransactionResponseDTO>> getTransactionsByBoardIdAndDate(@PathVariable Long boardId, @PathVariable String date) {
+    public ResponseEntity<DateSumResponseDTO> getTransactionsByBoardIdAndDate(@PathVariable Long boardId, @PathVariable String date) {
         // boardId로 feedBackId 찾기
         Long feedBackId = feedBackRepository.findFeedBackIdByBoardId(boardId).orElseThrow(() -> new ResourceNotFoundException("FeedBackBoardController_getTransactionsByBoardIdAndDate: 해당하는 게시물의 피드백 아이디를 찾을 수 없음: " + boardId));
-        List<TransactionResponseDTO> transactionsByDate = feedBackBoardServiceImpl.getTransactionsByDate(feedBackId, date);
+        DateSumResponseDTO transactionsByDate = feedBackBoardServiceImpl.getTransactionsByDate(feedBackId, date);
         return ResponseEntity.ok(transactionsByDate);
     }
 

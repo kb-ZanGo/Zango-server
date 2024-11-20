@@ -12,6 +12,8 @@ import java.util.List;
 public class FeedBackResponseDTO {
 
     private GetBoardDTO board;
+    private int incomeMonthSum = 0;
+    private int outcomeMonthSum = 0;
     private List<IOCntByDate> ioCnts;
 
 }
