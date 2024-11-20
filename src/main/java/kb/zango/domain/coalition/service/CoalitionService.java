@@ -13,6 +13,9 @@ public class CoalitionService {
 
     private final CoalitionRepository coalitionRepository;
 
+    public List<Coalition> findAll() {
+        return coalitionRepository.findAll();
+    }
     public List<Coalition> findCoalition(String type) {
         return coalitionRepository.findByType(type);
     }
