@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class HomeListFeedBackDTO {
 
     private Long feedBackId;
+    private String username;
     private String title;
     private String content;
     private String regiDate;

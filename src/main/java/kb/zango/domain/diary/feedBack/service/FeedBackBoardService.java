@@ -1,6 +1,7 @@
 package kb.zango.domain.diary.feedBack.service;
 
 import kb.zango.domain.board.entity.Board;
+import kb.zango.domain.diary.feedBack.dto.DateSumResponseDTO;
 import kb.zango.domain.diary.feedBack.dto.FeedBackResponseDTO;
 import kb.zango.domain.diary.feedBack.dto.GetBoardDTO;
 import kb.zango.domain.diary.feedBack.dto.HomeListFeedBackDTO;
@@ -25,7 +26,7 @@ public interface FeedBackBoardService {
     FeedBackResponseDTO getTransactions(Long boardId);
 
     // 게시물 Id와 날짜로 조회
-    List<TransactionResponseDTO> getTransactionsByDate(Long boardId, String date);
+    DateSumResponseDTO getTransactionsByDate(Long boardId, String date);
 
     // 게시물 목록 조회(홈)
     List<HomeListFeedBackDTO> getFeedBackList();
