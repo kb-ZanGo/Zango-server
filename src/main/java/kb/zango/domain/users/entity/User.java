@@ -1,5 +1,6 @@
 package kb.zango.domain.users.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import kb.zango.domain.board.entity.Board;
@@ -20,7 +21,6 @@ public class User {
     private Long userId;
 
     private String username;
-    private String connectId;
     private Long point;
     private Integer quizParticipationCount;
 
