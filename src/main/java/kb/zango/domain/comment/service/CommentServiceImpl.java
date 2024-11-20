@@ -6,7 +6,6 @@ import kb.zango.domain.board.repository.BoardRepository;
 import kb.zango.domain.comment.dto.CreateCommentRequestDTO;
 import kb.zango.domain.comment.dto.CommentResponseDTO;
 import kb.zango.domain.comment.dto.UpdateCommentRequestDTO;
-import kb.zango.domain.comment.entity.Comment;
 import kb.zango.domain.comment.repository.CommentRepository;
 import kb.zango.domain.users.entity.User;
 import kb.zango.domain.users.repository.UserRepository;
