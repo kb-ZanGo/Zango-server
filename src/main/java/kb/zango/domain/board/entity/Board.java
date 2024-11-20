@@ -48,4 +48,8 @@ public class Board {
     protected void updateBoard() {
         this.updateDate = LocalDateTime.now();
     }
+
+    public boolean isGroupBuy() {
+        return smallCategory.getBigCategory().getBcId() == 7;  // bigCategoryId가 1이면 groupbuy로 판단
+    }
 }

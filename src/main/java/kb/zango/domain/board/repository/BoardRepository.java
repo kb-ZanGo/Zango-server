@@ -14,4 +14,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Modifying
     @Query("delete from Board b where b.boardId = :boardId")
     void deleteByBoardId(Long boardId);
+    @Query("select b from Board b join fetch b.smallCategory where b.boardId = :id")
+    Board findByBoardIdWithCategory(Long id);
 }
