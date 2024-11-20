@@ -18,7 +18,7 @@ public class CoalitionController {
 
     @GetMapping("/api/coalition")
     public List<Coalition> getAllCoalition() {
-
+        return coalitionService.findAll();
     }
     @GetMapping("/api/coalition/{type}")
     public List<Coalition> getCoalition(@PathVariable String type) {
