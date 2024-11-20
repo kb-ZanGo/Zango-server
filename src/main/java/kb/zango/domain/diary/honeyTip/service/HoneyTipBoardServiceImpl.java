@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import kb.zango.domain.board.entity.Board;
 import kb.zango.domain.board.mapper.BoardMapper;
 import kb.zango.domain.board.repository.BoardRepository;
+import kb.zango.domain.diary.honeyTip.dto.HomeListHoneyBoardDTO;
 import kb.zango.domain.diary.honeyTip.dto.HoneyTipBoardRequest;
 import kb.zango.domain.diary.honeyTip.dto.HoneyTipBoardResponse;
 import kb.zango.domain.diary.honeyTip.entity.HoneyTipBoard;
@@ -34,6 +35,7 @@ public class HoneyTipBoardServiceImpl implements HoneyTipBoardService {
     private final UserRepository userRepository;
     private final GroupBuyBoardRepository groupBuyBoardRepository;
     private final BoardRepository boardRepository;
+
     @Override
     public Long insertHoneyTipBoard(HoneyTipBoardRequest request) {
         // 1. Board 엔티티 생성
@@ -127,6 +129,10 @@ public class HoneyTipBoardServiceImpl implements HoneyTipBoardService {
 
     @Override
     public HoneyTipBoardResponse getHoneyTipBoard(Long boardId) {
+
+        // 조회수 증가
+        boardRepository.incrementViewCnt(boardId);
+
         // 1. Board 조회
 //        Board board = boardMapper.findBoardById(boardId);
         Board board = boardRepository.findByBoardIdWithCategory(boardId);
@@ -134,6 +140,8 @@ public class HoneyTipBoardServiceImpl implements HoneyTipBoardService {
             GroupBuyBoard groupBuyBoard = groupBuyBoardRepository.findByBoardId(board.getBoardId());
             return HoneyTipBoardResponse.HoneyTipWithGroupBuy(board, groupBuyBoard);
         }
+
+
         // 3. 응답 객체 생성 및 반환
         return HoneyTipBoardResponse.NormalHoneyTip(board);
     }
@@ -169,6 +177,19 @@ public class HoneyTipBoardServiceImpl implements HoneyTipBoardService {
         return result;
     }
 
-    // 공동구매 여부 판단
+    // 조회수순 상위 5개 조회
+    @Override
+    public List<HomeListHoneyBoardDTO> getPopularBoards() {
+        List<Board> popularBoard = boardRepository.getPopularBoard();
 
+        return popularBoard.stream()
+                .map(board -> new HomeListHoneyBoardDTO(
+                        board.getBoardId(),
+                        board.getTitle(),
+                        board.getUser().getUsername(),
+                        board.getView_cnt(),
+                        board.getLikeCnt()
+                ))
+                .collect(Collectors.toList()); // DTO 리스트로 수집
+    }
 }
