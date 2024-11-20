@@ -6,6 +6,8 @@ import kb.zango.domain.users.entity.User;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,15 +18,15 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "board_id", nullable = false)
     private Board board;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_comment_id", nullable = true)
     private Comment parentComment;
 
@@ -39,6 +41,8 @@ public class Comment {
     @Column(nullable = false)
     private int likeCnt = 0;
 
+    @OneToMany(mappedBy = "parentComment", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Comment> childComments = new ArrayList<>();
 
     // JPA에서 timestamp 관리
     @PrePersist
