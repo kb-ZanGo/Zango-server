@@ -86,4 +86,10 @@ public class FeedBackBoardController {
         List<HomeListFeedBackDTO> feedBackList = feedBackBoardServiceImpl.getFeedBackList();
         return ResponseEntity.ok(feedBackList);
     }
+
+    @PostMapping("/{boardId}/like")
+    public ResponseEntity<Void> likeFeedBackBoardByBoardId(@PathVariable Long boardId) {
+        feedBackBoardServiceImpl.likeFeedBack(boardId);
+        return ResponseEntity.ok().build();
+    }
 }
