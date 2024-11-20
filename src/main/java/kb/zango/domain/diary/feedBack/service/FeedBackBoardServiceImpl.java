@@ -5,6 +5,7 @@ import kb.zango.domain.board.entity.Board;
 import kb.zango.domain.board.repository.BoardRepository;
 import kb.zango.domain.diary.feedBack.dto.FeedBackResponseDTO;
 import kb.zango.domain.diary.feedBack.dto.GetBoardDTO;
+import kb.zango.domain.diary.feedBack.dto.IOCntByDate;
 import kb.zango.domain.diary.feedBack.entity.FeedBackBoard;
 import kb.zango.domain.diary.feedBack.repository.FeedBackRepository;
 import kb.zango.domain.diary.honeyTip.repository.SmallCategoryRepository;
@@ -19,9 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class FeedBackBoardServiceImpl implements FeedBackBoardService {
@@ -107,9 +106,32 @@ public class FeedBackBoardServiceImpl implements FeedBackBoardService {
         // 응답에 넣을 transactions 정보
         List<TransactionResponseDTO> transactions = transactionService.getTransactions(feedBackId);
 
+        // Map을 사용하여 날짜별로 수입 및 지출을 집계할 수 있는 구조 생성
+        Map<String, IOCntByDate> countMap = new HashMap<>();
+
+        for (TransactionResponseDTO transaction : transactions) {
+            String date = transaction.getTrDay(); // 트랜잭션의 날짜 가져오기
+
+            // 날짜에 해당하는 집계 객체가 없으면 새로 생성
+            IOCntByDate ioCnt = countMap.getOrDefault(date, new IOCntByDate(date, 0, 0));
+
+            // 트랜잭션 타입에 따라 수입/지출 개수 증가
+            if (transaction.getTrType() == 1) { // 수입
+                ioCnt.setIncomeCnt(ioCnt.getIncomeCnt() + 1);
+            } else if (transaction.getTrType() == 0) { // 지출
+                ioCnt.setOutcomeCnt(ioCnt.getOutcomeCnt() + 1);
+            }
+
+            // Map에 갱신된 값 저장
+            countMap.put(date, ioCnt);
+        }
+
+        // 결과를 List로 변환
+        List<IOCntByDate> ioCntByDateList = new ArrayList<>(countMap.values());
+
         FeedBackResponseDTO boardWithTransactions = new FeedBackResponseDTO();
         boardWithTransactions.setBoard(newBoard);
-        boardWithTransactions.setTransactions(transactions);
+        boardWithTransactions.setIoCnts(ioCntByDateList);
 
         return boardWithTransactions;
     }
