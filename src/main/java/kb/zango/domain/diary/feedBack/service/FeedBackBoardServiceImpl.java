@@ -5,6 +5,7 @@ import kb.zango.domain.board.entity.Board;
 import kb.zango.domain.board.repository.BoardRepository;
 import kb.zango.domain.diary.feedBack.dto.FeedBackResponseDTO;
 import kb.zango.domain.diary.feedBack.dto.GetBoardDTO;
+import kb.zango.domain.diary.feedBack.dto.HomeListFeedBackDTO;
 import kb.zango.domain.diary.feedBack.dto.IOCntByDate;
 import kb.zango.domain.diary.feedBack.entity.FeedBackBoard;
 import kb.zango.domain.diary.feedBack.repository.FeedBackRepository;
@@ -17,10 +18,13 @@ import kb.zango.domain.users.entity.User;
 import kb.zango.domain.users.repository.UserRepository;
 import kb.zango.global.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class FeedBackBoardServiceImpl implements FeedBackBoardService {
@@ -142,5 +146,25 @@ public class FeedBackBoardServiceImpl implements FeedBackBoardService {
         feedBackRepository.findById(feedBackId).orElseThrow(() -> new kb.zango.global.exception.ResourceNotFoundException("해당하는 게시물을 찾을 수 없습니다: " + feedBackId));
 
         return transactionService.getTransactionsByDate(feedBackId, trDay);
+    }
+
+    // Home feedBack 게시물 리스트 조회
+    @Override
+    public List<HomeListFeedBackDTO> getFeedBackList() {
+        List<FeedBackBoard> feedBackList = feedBackRepository.getFeedBackList();
+
+        // DateTimeFormatter 정의 (yyyy.MM.dd 형식)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
+
+        // FeedBackBoard 리스트를 DTO로 변환
+        return feedBackList.stream()
+                .map(feedBackBoard -> new HomeListFeedBackDTO(
+                        feedBackBoard.getBoard().getBoardId(),  // boardId
+                        feedBackBoard.getBoard().getTitle(),   // title
+                        feedBackBoard.getBoard().getContent(), // content
+                        feedBackBoard.getBoard().getRegiDate().toLocalDate().format(formatter), // regiDate
+                        feedBackBoard.getBoard().getLikeCnt()
+                ))
+                .collect(Collectors.toList());
     }
 }
