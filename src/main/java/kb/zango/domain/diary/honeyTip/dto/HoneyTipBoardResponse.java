@@ -16,8 +16,8 @@ public class HoneyTipBoardResponse {
     private Long boardId;
     private String title;
     private String content;
-    private SmallCategory smallCategory;
-    private User user;
+    private String smallCategoryName;
+    private String userName;
     private int likeCnt;
     private int commentCnt;
     private LocalDateTime regiDate;
@@ -43,8 +43,8 @@ public class HoneyTipBoardResponse {
         honeyTipBoardResponse.setBoardId(board.getBoardId());
         honeyTipBoardResponse.setTitle(board.getTitle());
         honeyTipBoardResponse.setContent(board.getContent());
-        honeyTipBoardResponse.setSmallCategory(board.getSmallCategory());
-        honeyTipBoardResponse.setUser(board.getUser());
+        honeyTipBoardResponse.setSmallCategoryName(board.getSmallCategory().getName());
+        honeyTipBoardResponse.setUserName(board.getUser().getUsername());
         honeyTipBoardResponse.setLikeCnt(board.getLikeCnt());
         honeyTipBoardResponse.setCommentCnt(board.getCommentCnt());
         honeyTipBoardResponse.setRegiDate(board.getRegiDate());

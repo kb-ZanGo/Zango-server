@@ -1,6 +1,7 @@
 package kb.zango.domain.diary.honeyTip.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import kb.zango.domain.board.entity.Board;
@@ -147,33 +148,25 @@ public class HoneyTipBoardServiceImpl implements HoneyTipBoardService {
     }
 
     @Override
-    public List<HoneyTipBoardResponse> getAllHoneyTipBoards() {
+    public List<HoneyTipBoardResponse> getAllHoneyTipBoards(Long bigCategoryId) {
         // 1. 전체 게시글 목록 조회 (Board 테이블)
-//        List<Board> boards = boardMapper.findAllBoards();
-//
-//        // 2. 각 게시글에 대해 HoneyTipBoard 정보를 조회하고, HoneyTipBoardResponse로 변환
-//        return boards.stream()
-//                .map(board -> {
-//                    HoneyTipBoard honeyTipBoard = honeyTipBoardMapper.getHoneyTipBoard(board.getBoardId());
-//                    return new HoneyTipBoardResponse(
-//                            board.getBoardId(),
-//                            board.getTitle(),
-//                            board.getContent(),
-//                            board.getSmallCategory(),
-//                            board.getUser(),
-//                            board.getLikeCnt(),
-//                            board.getCommentCnt(),
-//                            board.getRegiDate(),
-//                            board.getUpdateDate(),
-//                            honeyTipBoard.getGroupBuyBoard() != null,
-//                            honeyTipBoard.getGroupBuyBoard() != null ? honeyTipBoard.getGroupBuyBoard().getGroupBuyItem() : "",
-//                            honeyTipBoard.getGroupBuyBoard() != null ? honeyTipBoard.getGroupBuyBoard().getReferenceSite() : "",
-//                            honeyTipBoard.getGroupBuyBoard() != null ? honeyTipBoard.getGroupBuyBoard().getPeopleLimit() : 0,
-//                            honeyTipBoard.getGroupBuyBoard() != null ? honeyTipBoard.getGroupBuyBoard().getKakaoLink() : ""
-//                    );
-//                })
-//                .collect(Collectors.toList());
-        return null;
+        List<Board> boards = boardRepository.findAllHoney(bigCategoryId);
+        List<HoneyTipBoardResponse> result = new ArrayList<>();
+
+        boards.stream().forEach(
+                b->{
+                    if (b.getBoard_type() == 0) {
+                        result.add(HoneyTipBoardResponse.NormalHoneyTip(b));
+                    } else {
+                        GroupBuyBoard groupBuyBoard = groupBuyBoardRepository.findByBoardId(b.getBoardId());
+                        result.add(HoneyTipBoardResponse.HoneyTipWithGroupBuy(b,groupBuyBoard));
+                    }
+                }
+        );
+
+        // 2. 각 게시글에 대해 HoneyTipBoard 정보를 조회하고, HoneyTipBoardResponse로 변환
+
+        return result;
     }
 
     // 공동구매 여부 판단

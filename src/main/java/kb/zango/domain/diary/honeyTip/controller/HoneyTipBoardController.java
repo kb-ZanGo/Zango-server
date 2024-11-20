@@ -5,13 +5,15 @@ import kb.zango.domain.diary.honeyTip.dto.HoneyTipBoardResponse;
 import kb.zango.domain.diary.honeyTip.service.HoneyTipBoardService;
 import kb.zango.domain.diary.honeyTip.entity.HoneyTipBoard;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
-@RequestMapping("/api/honeytip")
+@RequestMapping("/api/boards/honeytip")
 @RequiredArgsConstructor
 public class HoneyTipBoardController {
 
@@ -48,10 +50,10 @@ public class HoneyTipBoardController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<List<HoneyTipBoardResponse>> getAllHoneyTipBoards() {
+    @GetMapping("/all/{bigCategoryId}")
+    public ResponseEntity<List<HoneyTipBoardResponse>> getAllHoneyTipBoards(@PathVariable Long bigCategoryId) {
         try {
-            List<HoneyTipBoardResponse> responseList = honeyTipBoardService.getAllHoneyTipBoards();
+            List<HoneyTipBoardResponse> responseList = honeyTipBoardService.getAllHoneyTipBoards(bigCategoryId);
             return ResponseEntity.ok(responseList);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(null);

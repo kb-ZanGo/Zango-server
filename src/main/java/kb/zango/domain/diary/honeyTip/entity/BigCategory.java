@@ -19,8 +19,8 @@ public class BigCategory {
     @Column(nullable = false)
     public String name;
 
-    @OneToMany(mappedBy = "bigCategory", cascade = CascadeType.REMOVE)
-    @JsonIgnore
-    private List<SmallCategory> smallCategories;
+//    @OneToMany(mappedBy = "bigCategory", cascade = CascadeType.REMOVE)
+//    @JsonIgnore
+//    private List<SmallCategory> smallCategories;
 
 }
