@@ -30,4 +30,6 @@ public interface FeedBackBoardService {
 
     // 게시물 목록 조회(홈)
     List<HomeListFeedBackDTO> getFeedBackList();
+
+    void likeFeedBack(Long boardId);
 }

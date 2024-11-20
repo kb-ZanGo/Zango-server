@@ -188,4 +188,9 @@ public class FeedBackBoardServiceImpl implements FeedBackBoardService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public void likeFeedBack(Long boardId) {
+        feedBackRepository.incrementLikeCntFeedBack(boardId);
+    }
 }
