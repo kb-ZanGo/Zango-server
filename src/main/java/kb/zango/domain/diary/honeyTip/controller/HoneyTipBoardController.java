@@ -1,5 +1,6 @@
 package kb.zango.domain.diary.honeyTip.controller;
 
+import kb.zango.domain.diary.honeyTip.dto.HomeListHoneyBoardDTO;
 import kb.zango.domain.diary.honeyTip.dto.HoneyTipBoardRequest;
 import kb.zango.domain.diary.honeyTip.dto.HoneyTipBoardResponse;
 import kb.zango.domain.diary.honeyTip.service.HoneyTipBoardService;
@@ -67,6 +68,17 @@ public class HoneyTipBoardController {
             return ResponseEntity.ok("꿀팁 삭제 성공");
         } catch (Exception e) {
             return ResponseEntity.status(500).body("꿀팁 삭제 실패");
+        }
+    }
+
+    // 꿀팁 조회수순 상위 5개 조회
+    @GetMapping("/popular")
+    public ResponseEntity<List<HomeListHoneyBoardDTO>> getPopularHoneyTipBoards(){
+        try{
+            List<HomeListHoneyBoardDTO> popularBoards = honeyTipBoardService.getPopularBoards();
+            return ResponseEntity.ok(popularBoards);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
         }
     }
 }
