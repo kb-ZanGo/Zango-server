@@ -45,15 +45,10 @@ public class FeedBackBoardController {
     }
 
     // 수정
-    @PutMapping
-    public ResponseEntity<Void> updateFeedBackBoard(@RequestBody Board board){
-        Board findBoard = boardRepository.findByBoardId(board.getBoardId());
-        findBoard.setTitle(board.getTitle());
-        findBoard.setContent(board.getContent());
-
-        boardRepository.save(findBoard);
-
-        return ResponseEntity.ok().build();
+    @PutMapping("/{boardId}")
+    public ResponseEntity<UpdateFeedBackBoardDTO> updateFeedBackBoard(@PathVariable Long boardId, @RequestBody UpdateFeedBackBoardDTO updateFeedBackBoardDTO){
+        UpdateFeedBackBoardDTO response = feedBackBoardServiceImpl.updateFeedBack(boardId, updateFeedBackBoardDTO);
+        return ResponseEntity.ok(response);
     }
 
 

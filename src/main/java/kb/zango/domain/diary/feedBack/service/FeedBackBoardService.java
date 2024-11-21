@@ -1,10 +1,7 @@
 package kb.zango.domain.diary.feedBack.service;
 
 import kb.zango.domain.board.entity.Board;
-import kb.zango.domain.diary.feedBack.dto.DateSumResponseDTO;
-import kb.zango.domain.diary.feedBack.dto.FeedBackResponseDTO;
-import kb.zango.domain.diary.feedBack.dto.GetBoardDTO;
-import kb.zango.domain.diary.feedBack.dto.HomeListFeedBackDTO;
+import kb.zango.domain.diary.feedBack.dto.*;
 import kb.zango.domain.diary.feedBack.entity.FeedBackBoard;
 import kb.zango.domain.transaction.dto.CodefApiRequestDTO;
 import kb.zango.domain.transaction.dto.TransactionResponseDTO;
@@ -19,6 +16,8 @@ public interface FeedBackBoardService {
 
     // 피드백 게시물 작성 & 거래내역 저장
     void createFeedBackBoard(Board board, List<TransactionResponseDTO> transactions);
+
+    UpdateFeedBackBoardDTO updateFeedBack(Long boardId, UpdateFeedBackBoardDTO updateFeedBackBoardDTO);
 
     void deleteFeedBackBoard(Long boardId);
 
