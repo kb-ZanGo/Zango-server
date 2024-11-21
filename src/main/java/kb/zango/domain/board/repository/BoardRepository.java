@@ -22,7 +22,8 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query("select b from Board b "
             + "join fetch b.smallCategory s "
             + "join fetch s.bigCategory bc "
-            + "where bc.bcId = :bigCategoryId")
+            + "where bc.bcId = :bigCategoryId "
+            + "order by b.regiDate desc ")
     List<Board> findAllHoney(Long bigCategoryId);
 
 
