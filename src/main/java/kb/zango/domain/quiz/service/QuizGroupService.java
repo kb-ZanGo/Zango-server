@@ -36,7 +36,7 @@ public class QuizGroupService {
     }
 
 //    @Scheduled(cron = "0 0 0 * * *")
-//    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 * * * * *")
     @Transactional
     public void fetchDailyQuizGroups() {
         List<QuizGroup> all = quizGroupRepository.findAll();
