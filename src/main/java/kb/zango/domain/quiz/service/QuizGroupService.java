@@ -25,7 +25,7 @@ public class QuizGroupService {
 
     private final QuizGroupRepository quizGroupRepository;
     private final RedisTemplate<String, Object> redisTemplate;
-    private final QuizGroupRedisRepository quizGroupRedisRepository;
+//    private final QuizGroupRedisRepository quizGroupRedisRepository;
     private final ObjectMapper objectMapper;
 
 //    private List<QuizGroup> dailyQuizGroups = new ArrayList<>();
@@ -36,7 +36,7 @@ public class QuizGroupService {
     }
 
 //    @Scheduled(cron = "0 0 0 * * *")
-    @Scheduled(cron = "0 * * * * *")
+//    @Scheduled(cron = "0 * * * * *")
     @Transactional
     public void fetchDailyQuizGroups() {
         List<QuizGroup> all = quizGroupRepository.findAll();
@@ -53,11 +53,12 @@ public class QuizGroupService {
         }
     }
 
-    @Cacheable("quiz")
+//    @Cacheable("quiz")
     public List<QuizGroupResponse> getDailyQuizGroups() {
         List<QuizGroupResponse> result = new ArrayList<>();
 
         String quizGroupJson = (String) redisTemplate.opsForValue().get("quiz");
+        System.out.println(quizGroupJson);
         if (quizGroupJson == null) {
             return result;
         }
