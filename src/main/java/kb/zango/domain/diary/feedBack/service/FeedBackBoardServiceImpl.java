@@ -73,6 +73,22 @@ public class FeedBackBoardServiceImpl implements FeedBackBoardService {
         transactionService.saveTransactions(transactionList);
     }
 
+    @Override
+    public UpdateFeedBackBoardDTO updateFeedBack(Long boardId, UpdateFeedBackBoardDTO updateFeedBackBoardDTO) {
+
+        // update 내용 적용
+        Board board = boardRepository.findByBoardId(boardId);
+        board.setTitle(updateFeedBackBoardDTO.getTitle());
+        board.setContent(updateFeedBackBoardDTO.getContent());
+        boardRepository.save(board);
+
+        // 응답 생성
+        UpdateFeedBackBoardDTO response = new UpdateFeedBackBoardDTO();
+        response.setTitle(updateFeedBackBoardDTO.getTitle());
+        response.setContent(updateFeedBackBoardDTO.getContent());
+
+        return response;
+    }
 
     @Override
     public void deleteFeedBackBoard(Long boardId) {
