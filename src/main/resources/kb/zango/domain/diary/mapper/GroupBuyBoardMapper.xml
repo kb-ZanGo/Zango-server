@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kb.zango.domain.diary.mapper.GroupBuyBoardMapper">
+
+    <insert id="insertGroupBuy" parameterType="kb.zango.domain.diary.honeyTip.entity.GroupBuyBoard"
+            useGeneratedKeys="true" keyProperty="groupBuyId">
+
+        INSERT INTO groupbuy (board_id, group_buy_item, reference_site, people_limit, kakao_link)
+
+        VALUES (#{boardId}, #{groupBuyItem}, #{referenceSite}, #{peopleLimit}, #{kakaoLink})
+    </insert>
+
+    <select id="findGroupBuyByBoardId" parameterType="Long" resultType="kb.zango.domain.diary.honeyTip.entity.GroupBuyBoard">
+        SELECT * FROM groupbuy WHERE board_id = #{boardId}
+    </select>
+
+    <update id="updateGroupBuy" parameterType="kb.zango.domain.diary.honeyTip.entity.GroupBuyBoard">
+        UPDATE groupbuy
+        SET group_buy_item = #{groupBuyItem},
+            reference_site = #{referenceSite},
+            people_limit = #{peopleLimit},
+            kakao_link = #{kakaoLink},
+            small_category_id = #{board.smallCategory.scId},
+            update_date = NOW()
+        WHERE group_buy_id = #{groupBuyId}
+    </update>
+
+    <delete id="deleteGroupBuy" parameterType="Long">
+        DELETE FROM groupbuy WHERE group_buy_id = #{groupBuyId}
+    </delete>
+
+</mapper>
