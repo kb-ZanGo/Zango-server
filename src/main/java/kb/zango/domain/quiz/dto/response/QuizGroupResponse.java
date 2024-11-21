@@ -3,10 +3,11 @@ package kb.zango.domain.quiz.dto.response;
 import kb.zango.domain.quiz.entity.QuizGroup;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
-public class QuizGroupResponse {
+public class QuizGroupResponse implements Serializable {
 
     private Long id;
 

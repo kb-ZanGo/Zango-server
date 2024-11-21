@@ -7,12 +7,13 @@ import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
 @Getter
-public class QuizGroup {
+public class QuizGroup implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
